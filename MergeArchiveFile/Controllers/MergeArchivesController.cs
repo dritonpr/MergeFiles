@@ -25,8 +25,8 @@ namespace MergeArchiveFile.Controllers
         /// To upload and merge multiple files, then return the merged file as a ZIP archive
         /// </summary>
         /// <param name="files">The list of zip files for merging.</param>
-        /// <response code="200">The merged zip file.</response>
-        /// <response code="404">If the product is not found.</response>
+        /// <response code="200">The merged zip file. Files are processed using MemoryStream</response>
+        /// <response code="400">If the request is malformed or if any input .ZIP file is corrupted.</response>
         [HttpPost]
         [Produces("application/zip")]  
         [Consumes("multipart/form-data")] 
@@ -46,7 +46,12 @@ namespace MergeArchiveFile.Controllers
             return File(mergedFile, "application/zip", $"Merged_Archive_Files_{Guid.NewGuid()}.zip");
         }
 
-
+        /// <summary>
+        /// To upload and merge multiple files, then return the merged file as a ZIP archive
+        /// </summary>
+        /// <param name="files">The list of zip files for merging.</param>
+        /// <response code="200">The merged zip file. Files are processed by temporarily save uploaded ZIP files to disk</response>
+        /// <response code="400">If the request is malformed or if any input .ZIP file is corrupted.</response>
         [HttpPost("mergezipfileandsaveondisc")]
         [Produces("application/zip")]
         [Consumes("multipart/form-data")]
