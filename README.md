@@ -54,7 +54,7 @@ If an unexpected error occurs during the process, the API will not expose detail
 
 ## Implementation Details
 - **Runtime**: The application is developed using ASP.NET Core, which is a cross-platform, high-performance framework for building modern, cloud-based, and internet-connected applications.
-- **Error Handling**: To ensure unexpected errors are caught and appropriately handled, we use global exception handling middleware in ASP.NET Core. This prevents detailed .NET error messages from being sent to clients.
+- **Error Handling**: To ensure unexpected errors are caught and appropriately handled, I've used global exception handling middleware in ASP.NET Core. This will prevent detailed .NET error messages from being sent to clients.
 
 ## Libraries and Dependencies
 - **AspNetCoreRateLimit**: ASP.NET Core rate limiting solution designed to control the rate of requests that clients can make to a Web API or MVC app based on IP address or client ID.
