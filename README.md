@@ -17,8 +17,8 @@ Clone the repo: git clone https://github.com/dritonpr/MergeFiles
 
 ### Endpoints
 The API exposes the following endpoints:
-### 1. POST /api/MergeArchives
-### 2. POST /api/MergeArchives/mergezipfileandsaveondisc
+#### 1. POST /api/MergeArchives
+#### 2. POST /api/MergeArchives/mergezipfileandsaveondisc
 
 Both endpoint merges multiple .ZIP files into one .ZIP file. 
 #### Further explanation:
