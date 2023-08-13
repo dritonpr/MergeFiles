@@ -31,7 +31,7 @@ Both endpoint merges multiple .ZIP files into one .ZIP file.
 
 #### Parameters:
 - `files`: A collection of .ZIP files, submitted as Form-Data. This method supports the submission of multiple .ZIP files, each of which can be up to 100 MB (3 GB optionally, it's managed by appsettings.json variable).
-I've chosen to use multipart/form-data for file uploads. This is a common choice for file uploads in web applications. Its support is widespread, making it easy to interact with from various clients (like browsers, curl, or Postman).
+I've chosen to use multipart/form-data for file uploads. This format is standard for sending files over HTTP and is supported by many HTTP clients and libraries. The decision to use multipart/form-data is because it allows sending large files efficiently without the need to base64 encode them. Its support is widespread, making it easy to interact with from various clients (like browsers, curl, or Postman). 
 #### Responses:
 - `200 OK`: If the operation is successful. The response body will contain the merged .ZIP file. 
 - `400 Bad Request`: If the request is malformed or if any input .ZIP file is corrupted.
@@ -39,21 +39,18 @@ I've chosen to use multipart/form-data for file uploads. This is a common choice
 
 ## API Usage
 ### Input
-The API endpoint `/api/MergeArchives` expects a POST request containing multiple .ZIP files, sent as `multipart/form-data`. This format is standard for sending files over HTTP and is supported by many HTTP clients and libraries. The decision to use `multipart/form-data` is because it allows sending large files efficiently without the need to base64 encode them.
-
+- The API endpoints `/api/MergeArchives`, `/api/MergeArchives` expects a POST request containing multiple .ZIP files, sent as `multipart/form-data`.
+- There is the Custom function for the validation of each file
 ### Output
 The API will respond with a .ZIP file containing the merged contents of the input files.
 
-### Error Handling
-If an unexpected error occurs during the process, the API will not expose detailed .NET exception messages to the client. Instead, it will respond with a generic error message and a `500 Internal Server Error` status code.
-
 ## Quality Requirements
-1. **Scalability**: We implemented async patterns to ensure the server can handle multiple requests concurrently without blocking. This ensures the server remains responsive even under heavy load.
-2. **Robustness**: By limiting the maximum file size, we ensure that the server doesn't get overwhelmed with too large files. We also catch unexpected exceptions and prevent their details from being sent to clients, thereby hiding potentially sensitive information.
+1. **Scalability**: I've implemented intereface based async patterns to ensure the server can handle multiple requests concurrently without blocking. This ensures the server remains responsive even under heavy load.
+2. **Robustness**: By limiting the maximum file size, we ensure that the server doesn't get overwhelmed with too large files. By catching unexpected exceptions and prevent their details from being sent to clients, thereby hiding potentially sensitive information. By using Rate limit, we manage to add rate-limiting capabilities.
 3. **Efficiency**: The merging process is optimized to ensure it happens as quickly as possible, minimizing the response time for the client by streaming the data when possible to avoid excessive memory consumption.
 
 ## Implementation Details
-- **Runtime**: The application is developed using ASP.NET Core, which is a cross-platform, high-performance framework for building modern, cloud-based, and internet-connected applications.
+- **Runtime**: The application is developed using ASP.NET Core 7.0
 - **Error Handling**: To ensure unexpected errors are caught and appropriately handled, I've used global exception handling middleware in ASP.NET Core. This will prevent detailed .NET error messages from being sent to clients.
 
 ## Libraries and Dependencies
@@ -65,7 +62,7 @@ If an unexpected error occurs during the process, the API will not expose detail
 ## API Features and Middleware
 
 ### Logging with Serilog
-Our API uses Serilog to log detailed and structured events, which assists in debugging, error tracking, and auditing client usage.
+API uses Serilog to log detailed and structured events, which assists in debugging, error tracking, and auditing client usage.
 
 #### Configuration and Usage:
 - **Initialization**: Serilog is initialized in the `Program.cs` with sinks such as Console and File to redirect logs accordingly.
@@ -88,4 +85,4 @@ You can test the API using tools like Postman, cURL, or any HTTP client that sup
 - Scan the uploaded files for potential malware, especially if they will be accessible to other users or if they'll be processed further by your application.
 - Adding unit testing.
 ## Conculsion
-Handling large files is challenging, but with careful consideration of memory usage, efficient processing, and the right infrastructure, it's feasible. I would also prefer to monitor the system's performance and make adjustments as needed.
+Handling large files is challenging, but with careful consideration of memory usage, efficient processing, and the right infrastructure, it's feasible. I would prefer to monitor the system's performance and make adjustments as needed.
