@@ -42,8 +42,8 @@ I've chosen to use multipart/form-data for file uploads. This format is standard
 - The API endpoints `/api/MergeArchives`, `/api/MergeArchives` expects a POST request containing multiple .ZIP files, sent as `multipart/form-data`.
 - There is the custom function for the validation of each file
 ### Output
-The API will respond with a .ZIP file containing the merged contents of the input files.
-
+- The API will respond with a .ZIP file containing the merged contents of the input files.
+- Each file in merged zip folder will be renamed with format: {guid}_{oldfilename}.
 ## Quality Requirements
 1. **Scalability**: I've implemented intereface based async patterns to ensure the server can handle multiple requests concurrently without blocking. This ensures the server remains responsive even under heavy load.
 2. **Robustness**: By limiting the maximum file size, we ensure that the server doesn't get overwhelmed with too large files. By catching unexpected exceptions and prevent their details from being sent to clients, thereby hiding potentially sensitive information. By using Rate limit, we manage to add rate-limiting capabilities.
@@ -81,8 +81,8 @@ Our API uses `AspNetCoreRateLimit` to prevent abuse by limiting the number of pe
 ## Testing
 You can test the API using tools like Postman, cURL, or any HTTP client that supports `multipart/form-data` requests.
 
-## Future planinng for improvement:
+## Upcomming improvements:
 - Scan the uploaded files for potential malware, especially if they will be accessible to other users or if they'll be processed further by your application.
-- Adding unit testing.
+- Unit testing.
 ## Conculsion
 Handling large files is challenging, but with careful consideration of memory usage, efficient processing, and the right infrastructure, it's feasible. It's crucial to monitor the system's performance and make adjustments as needed.
