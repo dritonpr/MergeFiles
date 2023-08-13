@@ -40,7 +40,7 @@ I've chosen to use multipart/form-data for file uploads. This format is standard
 ## API Usage
 ### Input
 - The API endpoints `/api/MergeArchives`, `/api/MergeArchives` expects a POST request containing multiple .ZIP files, sent as `multipart/form-data`.
-- There is the Custom function for the validation of each file
+- There is the custom function for the validation of each file
 ### Output
 The API will respond with a .ZIP file containing the merged contents of the input files.
 
@@ -85,4 +85,4 @@ You can test the API using tools like Postman, cURL, or any HTTP client that sup
 - Scan the uploaded files for potential malware, especially if they will be accessible to other users or if they'll be processed further by your application.
 - Adding unit testing.
 ## Conculsion
-Handling large files is challenging, but with careful consideration of memory usage, efficient processing, and the right infrastructure, it's feasible. I would prefer to monitor the system's performance and make adjustments as needed.
+Handling large files is challenging, but with careful consideration of memory usage, efficient processing, and the right infrastructure, it's feasible. It's crucial to monitor the system's performance and make adjustments as needed.
