@@ -83,6 +83,5 @@ You can test the API using tools like Postman, cURL, or any HTTP client that sup
 
 ## Upcomming improvements:
 - Scan the uploaded files for potential malware, especially if they will be accessible to other users or if they'll be processed further by your application.
-- Unit testing.
 ## Conculsion
 Handling large files is challenging, but with careful consideration of memory usage, efficient processing, and the right infrastructure, it's feasible. It's crucial to monitor the system's performance and make adjustments as needed.
